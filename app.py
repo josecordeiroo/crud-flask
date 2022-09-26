@@ -11,7 +11,7 @@ secret = os.getenv("mysql_password")
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
-app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql://root:{secret}@localhost/test'
+app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql://root:{secret}@localhost/contacts'
 
 db = SQLAlchemy(app)
 
@@ -20,3 +20,13 @@ class User(db.Model):
     name = db.Column(db.String(50))
     email = db.Column(db.String(100))
 
+
+@app.route('/users', methods=["GET"])
+def all():
+    users_class = User.query.all()
+    print(users_class)
+
+    return Response()
+
+
+# app.run()
